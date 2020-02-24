@@ -95,11 +95,11 @@ function counterFactory(value) {
   
   
   return {
-    inc: function(){
+    inc(){
       value += 1;
       return value
     },
-    dec: function(){
+    dec(){
       value -= 1;
       return value
     }
@@ -179,10 +179,10 @@ function secretNumber() {
   var secret = 143;
 
   return {
-    addToSecret: function(num){
+    addToSecret(num){
       return secret += num
     },
-    takeAwayFromSecret: function(num){
+    takeAwayFromSecret(num){
       return secret -= num
     }
   };
