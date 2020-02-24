@@ -99,24 +99,33 @@ class ProgressiveManager extends Manager {
     super(first_name, last_name, email, age, reports, title, bonus)
     this.title = 'Not a manager';
     this.bonus = 0;
-  } 
-  hired(){
+  }
+
+  employeeTitle(){
     if(this.reports.length === 0){
       this.title = 'Not a manager'
-    } else if (this.reports.length >= 1 && this.reports.length <= 3){
+    } else if (this.reports.length <= 3){
       this.title = 'Barely Manager'
-    } else if (this.reports.length >= 4 && this.reports.length <= 10){
+    } else if (this.reports.length <= 10){
       this.title = 'Mostly Manager'
-    } else if (this.reports.length >= 11 && this.reports.length <= 50){
+    } else if (this.reports.length <= 50){
       this.title = 'Manager'
-    } else if (this.reports.length >= 51 && this.reports.length <= 100){
+    } else if (this.reports.length <= 100){
       this.title = 'Manager Plus'
     } else {
       this.title = 'Bestest Manager'
     }
   }
-  fired(){
-    this.bonus = num * 100
+
+  hire(employee){
+    this.reports.push(employee)
+    return this.employeeTitle()
+  }
+
+  fire(index){
+    this.reports.splice(index,1)
+    this.bonus += 100
+    return this.employeeTitle()
   }
 }
 
@@ -154,15 +163,15 @@ class Machine {
   }
   makeWidgets(num){
     this.widgets_made_count += num;
-    // if(this.widgets_made_count % 50 === 0){
-    //   this.wear_and_tear_count += 1
-    // }
-  },
+    this.wear_and_tear_count += num/50
+  }
+
   fixMachine(){
-    this.needs_reboot = true
-  },
+    this.needs_reboot = true;
+  }
+
   reboot(){
-    return function(){
+    return () => {
       this.wear_and_tear_count -= 10;
       this.needs_reboot = false
     }
